@@ -32,5 +32,61 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-	//// Replace this comment with your code.
+	// 1. Decode Instruction Type
+    // instruction[15]: 0 for A-instruction, 1 for C-instruction
+    Not(in=instruction[15], out=isAInstruction);
+    Not(in=isAInstruction, out=isCInstruction);
+
+    // 2. A-Register Logic
+    // If A-instruction, load instruction value. 
+    // If C-instruction, load ALU output.
+    Mux16(a=instruction, b=aluOut, sel=isCInstruction, out=inA);
+    
+    // Load A if: It is an A-instruction OR (C-Instruction AND Dest bit d1 is 1)
+    And(a=isCInstruction, b=instruction[5], out=isLoadAFromALU);
+    Or(a=isAInstruction, b=isLoadAFromALU, out=loadA);
+    
+    ARegister(in=inA, load=loadA, out=outA, out[0..14]=addressM);
+
+    // 3. D-Register Logic
+    // Load D if: C-Instruction AND Dest bit d2 is 1
+    And(a=isCInstruction, b=instruction[4], out=loadD);
+    DRegister(in=aluOut, load=loadD, out=outD);
+
+    // 4. ALU Logic
+    // Select ALU input Y: A-Register or Memory input (inM) based on 'a' bit (instruction[12])
+    Mux16(a=outA, b=inM, sel=instruction[12], out=aluY);
+
+    ALU(x=outD, y=aluY, 
+        zx=instruction[11], nx=instruction[10], 
+        zy=instruction[9],  ny=instruction[8], 
+        f=instruction[7],   no=instruction[6], 
+        out=aluOut, out=outM, zr=zr, ng=ng);
+
+    // 5. Write to Memory Logic
+    // Write if: C-Instruction AND Dest bit d3 is 1
+    And(a=isCInstruction, b=instruction[3], out=writeM);
+
+    // 6. Program Counter (Jump) Logic
+    // Determine if condition matches jump bits (j1=inst[2], j2=inst[1], j3=inst[0])
+    // Flags: zr (zero), ng (negative)
+    
+    // Calculate if result is positive (not zero and not negative)
+    Or(a=zr, b=ng, out=zrOrNg);
+    Not(in=zrOrNg, out=pos);
+
+    // Check jump conditions
+    And(a=instruction[2], b=ng, out=jlt); // Jump if < 0
+    And(a=instruction[1], b=zr, out=jeq); // Jump if = 0
+    And(a=instruction[0], b=pos, out=jgt); // Jump if > 0
+
+    // Combine conditions
+    Or(a=jlt, b=jeq, out=jle);
+    Or(a=jle, b=jgt, out=jumpCondition);
+
+    // Load PC (Jump) if: C-Instruction AND Jump Condition is met
+    And(a=isCInstruction, b=jumpCondition, out=loadPC);
+
+    // If not loading/jumping, we increment. If reset, we zero (handled by chip).
+    PC(in=outA, load=loadPC, inc=true, reset=reset, out[0..14]=pc);
 }

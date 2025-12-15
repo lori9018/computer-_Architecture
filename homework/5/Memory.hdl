@@ -24,6 +24,49 @@ CHIP Memory {
     IN in[16], load, address[15];
     OUT out[16];
 
-    PARTS:
-	//// Replace this comment with your code.
+   
+	PARTS:
+    // --------------------------------------------------------
+    // 1. LOAD LOGIC (Demultiplexing)
+    // --------------------------------------------------------
+    
+    // Determine if we are accessing RAM (0xxxx...) or I/O (1xxxx...)
+    // address[14] is the Most Significant Bit.
+    // If address[14] == 0, we load to RAM. 
+    // If address[14] == 1, we look further (Screen or Keyboard).
+    DMux(in=load, sel=address[14], a=loadRAM, b=loadIO);
+
+    // If we are in the I/O range (1xxxx...), check address[13]
+    // 10xxx... is Screen
+    // 11xxx... is Keyboard (though Keyboard is read-only, so 'loadKBD' is a dead end)
+    DMux(in=loadIO, sel=address[13], a=loadScreen, b=loadKBD);
+
+
+    // --------------------------------------------------------
+    // 2. MEMORY CHIP INSTANTIATION
+    // --------------------------------------------------------
+
+    // RAM16K: Addresses 0 to 16383 (0x0000 - 0x3FFF)
+    // It uses the lower 14 bits of the address.
+    RAM16K(in=in, load=loadRAM, address=address[0..13], out=outRAM);
+
+    // Screen: Addresses 16384 to 24575 (0x4000 - 0x5FFF)
+    // It uses the lower 13 bits of the address (8K size).
+    Screen(in=in, load=loadScreen, address=address[0..12], out=outScreen);
+
+    // Keyboard: Address 24576 (0x6000)
+    // It has no input or load; it just outputs the currently pressed key.
+    Keyboard(out=outKBD);
+
+
+    // --------------------------------------------------------
+    // 3. OUTPUT LOGIC (Multiplexing)
+    // --------------------------------------------------------
+
+    // Select the correct output based on address[13..14]
+    // 00 (RAM)    -> a
+    // 01 (RAM)    -> b  (Because RAM covers the first 16K, both 00... and 01... point to RAM)
+    // 10 (Screen) -> c
+    // 11 (KBD)    -> d
+    Mux4Way16(a=outRAM, b=outRAM, c=outScreen, d=outKBD, sel=address[13..14], out=out);
 }

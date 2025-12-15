@@ -18,5 +18,28 @@ CHIP Computer {
     IN reset;
 
     PARTS:
-    //// Replace this comment with your code.
+    // 1. The Instruction Memory (ROM)
+    // The CPU tells the ROM which address to look at via the 'pc' wire.
+    // The ROM sends the binary instruction back to the CPU.
+    ROM32K(address=pc, out=instruction);
+
+    // 2. The Central Processing Unit (CPU)
+    // It takes the instruction from ROM, data from Memory (memOut), and the external reset.
+    // It outputs data to write to memory (outM), the address to write to (addressM),
+    // a control bit to enable writing (writeM), and the address of the next instruction (pc).
+    CPU(inM=memOut, 
+        instruction=instruction, 
+        reset=reset, 
+        outM=outM, 
+        writeM=writeM, 
+        addressM=addressM, 
+        pc=pc);
+
+    // 3. The Data Memory (RAM + I/O)
+    // It receives the address, data, and write-enable bit from the CPU.
+    // It outputs the data currently stored at that address back to the CPU.
+    Memory(in=outM, 
+           load=writeM, 
+           address=addressM, 
+           out=memOut);
 }
