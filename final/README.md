@@ -1,7 +1,5 @@
 # 期中作業 Project6~12 說明
 
-## 著作狀態聲明
-
 **註明：原創，複製或修改**
 
 - 第6-11章習題：全部由AI生成（Gemini）
@@ -53,7 +51,7 @@ gcc VMTranslator.c -o VMTranslator.exe
 
 **理解程度：** 少部分理解<br>
 第一階段：程式流程控制 (Program Flow Control)
-主要是翻譯 label、goto 和 if-goto 指令。這讓你的虛擬機能夠執行迴圈和條件判斷。<br>
+主要是翻譯 label、goto 和 if-goto 指令。這讓虛擬機能夠執行迴圈和條件判斷。<br>
 第二階段：函式呼叫指令 (Function Calling Commands)
 需要實作 function、call 和 return。<br>
 第三階段：引導程式 (Bootstrap Code)
@@ -73,4 +71,31 @@ gcc VMTranslator.c -o VMTranslator.exe
 **AI對話網址：**
 
 - [gemini對話網址](https://gemini.google.com/share/7ce46b46ee81)
+
+---
+
+### Project 9: High-Level Language (乒乓球遊戲)
+
+**習題完成狀態：** AI生成
+
+**理解程度：** 少部分理解
+
+1. 理解目標與限制
+目標： 寫一個用 Jack 語言編寫的互動式程式（通常是遊戲）。<br>
+環境： 程式將在標準的 Hack 平台上運行（256x512 像素螢幕，標準鍵盤）。<br>
+限制： Jack 很原始。沒有 Garbage Collection（垃圾回收），運算能力有限（16-bit），沒有進階的除錯器。
+2. 核心工作流程 (Workflow)
+你需要習慣這個開發循環：<br>
+編寫程式碼 (.jack)：使用文字編輯器（VS Code 等）。<br>
+編譯 (JackCompiler)：使用課程提供的 tools/JackCompiler 將 .jack 檔轉為 .vm 檔。<br>
+測試 (VMEmulator)：載入生成的 .vm 檔（或含有 vm 檔的資料夾），並運行程式。注意： 這裡還不需要用 CPU Emulator，用 VM Emulator 速度才夠快。
+
+```c
+cd C:\Users\Arthur\Downloads\nand2tetris\nand2tetris\tools
+```
+```c
+.\JackCompiler.bat C:\arther\computer_arch\_co\final\9\Pong
+```
+**AI對話網址：**
+- [gemini對話網址](https://gemini.google.com/share/babebe7307fe)
 
