@@ -51,11 +51,11 @@ gcc VMTranslator.c -o VMTranslator.exe
 
 **習題完成狀態：** AI生成
 
-**理解程度：** 少部分理解
+**理解程度：** 少部分理解<br>
 第一階段：程式流程控制 (Program Flow Control)
-主要是翻譯 label、goto 和 if-goto 指令。這讓你的虛擬機能夠執行迴圈和條件判斷。
+主要是翻譯 label、goto 和 if-goto 指令。這讓你的虛擬機能夠執行迴圈和條件判斷。<br>
 第二階段：函式呼叫指令 (Function Calling Commands)
-需要實作 function、call 和 return。
+需要實作 function、call 和 return。<br>
 第三階段：引導程式 (Bootstrap Code)
 為了讓 VM Translator 能處理完整的程式（包含多個 .vm 檔案），需要在輸出的 Assembly 檔案最開頭加入這段程式碼：
 1. SP = 256：初始化堆疊指標。
