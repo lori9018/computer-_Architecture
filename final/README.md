@@ -45,3 +45,32 @@ gcc VMTranslator.c -o VMTranslator.exe
 
 - [gemini對話網址](https://gemini.google.com/share/d36cfb10d690)
 
+---
+
+### Project 8: VM II: Program Control
+
+**習題完成狀態：** AI生成
+
+**理解程度：** 少部分理解
+第一階段：程式流程控制 (Program Flow Control)
+主要是翻譯 label、goto 和 if-goto 指令。這讓你的虛擬機能夠執行迴圈和條件判斷。
+第二階段：函式呼叫指令 (Function Calling Commands)
+需要實作 function、call 和 return。
+第三階段：引導程式 (Bootstrap Code)
+為了讓 VM Translator 能處理完整的程式（包含多個 .vm 檔案），需要在輸出的 Assembly 檔案最開頭加入這段程式碼：
+1. SP = 256：初始化堆疊指標。
+2. Call Sys.init：呼叫系統的入口函式 Sys.init（這會自動處理後續的邏輯）。
+
+
+```c
+gcc VMTranslator.c -o VMTranslator.exe
+```
+
+```c
+.\VMTranslator.exe .
+```
+
+**AI對話網址：**
+
+- [gemini對話網址](https://gemini.google.com/share/7ce46b46ee81)
+
