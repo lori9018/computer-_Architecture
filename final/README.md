@@ -126,3 +126,40 @@ cd C:\Users\Arthur\Downloads\nand2tetris\nand2tetris\tools
 ```
 **AI對話網址：**
 - [gemini對話網址](https://gemini.google.com/share/5b818714efcc)
+
+---
+
+### Project 11: Compiler II: Code Generation
+
+**習題完成狀態：** 未完成，僅閱讀理解老師的範例
+
+**理解程度：** 少部分理解
+
+1. 理解核心目標
+目標是編寫一個程式（Compiler），將 Jack 語言 (.jack) 翻譯成 VM 代碼 (.vm)。 需要將第 10 章的 JackAnalyzer 進行改造。不再需要輸出 XML，而是要輸出 VM 指令。
+
+**AI對話網址：**
+- [老師的範例](https://github.com/ccc114a/cpu2os/tree/master/_nand2tetris/11)
+
+### Project 12: Operating System
+
+**習題完成狀態：** 未完成，僅閱讀理解老師的範例
+
+**理解程度：** 少部分理解
+
+1. 核心觀念與準備
+在這個階段，已經有了 CPU、記憶體和編譯器。任務是填補硬體與應用程式軟體之間的空白。要實作 8 個 Jack 類別檔案（.jack）。
+使用 Jack 語言實作 8 個核心類別（Class），每個類別負責不同的系統服務 ：
+
+1. Math.jack：處理數學運算（如乘除法、平方根等） 。
+2. String.jack：處理字串處理與轉換 。
+3. Array.jack：管理陣列的建立 。
+4. Memory.jack：負責記憶體管理（分配與釋放，如 alloc 和 deAlloc） 。
+5. Screen.jack：負責繪圖功能（如繪製直線、矩形、圓形） 。
+6. Output.jack：處理文字輸出與螢幕字元顯示 。
+7. Keyboard.jack：處理鍵盤輸入與讀取按鍵訊息 。
+8. Sys.jack：系統服務（如程式初始化 init、暫停執行 wait 以及終止程式 halt） 。
+
+
+**AI對話網址：**
+- [老師的範例](https://github.com/ccc114a/cpu2os/tree/master/_nand2tetris/12)
