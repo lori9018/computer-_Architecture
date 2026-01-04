@@ -141,6 +141,8 @@ cd C:\Users\Arthur\Downloads\nand2tetris\nand2tetris\tools
 **AI對話網址：**
 - [老師的範例](https://github.com/ccc114a/cpu2os/tree/master/_nand2tetris/11)
 
+---
+
 ### Project 12: Operating System
 
 **習題完成狀態：** 未完成，僅閱讀理解老師的範例
