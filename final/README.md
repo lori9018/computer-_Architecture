@@ -21,6 +21,8 @@
 
 - [gemini對話網址](https://gemini.google.com/share/3721c5b5b8f0)
 
+---
+
 
 ### Project 7: VM I: Stack Arithmetic
 
@@ -31,9 +33,13 @@
 程式需要讀取 .vm 檔案，並針對每一行指令生成對應的 Hack Assembly 代碼。 
 2. 實作，如何用c語言寫出VM Translator，並執行對應的.vm檔案，並輸出對應的asm
 
+```c
 gcc VMTranslator.c -o VMTranslator.exe
+```
 
+```c
 .\VMTranslator.exe
+```
 
 **AI對話網址：**
 
