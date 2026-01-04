@@ -99,3 +99,30 @@ cd C:\Users\Arthur\Downloads\nand2tetris\nand2tetris\tools
 **AI對話網址：**
 - [gemini對話網址](https://gemini.google.com/share/babebe7307fe)
 
+---
+
+### Project 10: Compiler I: Parsing
+
+**習題完成狀態：** AI生成
+
+**理解程度：** 少部分理解
+
+1. 理解核心目標
+目標是編寫一個程式（可以用 Java, Python, C++），它接收 .jack 檔案，並輸出對應的 .xml 檔案。<br>
+這個過程分為兩個主要模組：
+1. Tokenizer (詞法分析器): 把原始程式碼拆解成一個個有意義的 "Token"（單詞），並丟棄註解和空白。
+2. Compilation Engine (編譯引擎): 根據 Jack 的語法規則，將這些 Token 組織成樹狀結構（Parse Tree），並輸出 XML。
+
+```c
+g++ JackAnalyzer.cpp CompilationEngine.cpp JackTokenizer.cpp -o JackAnalyzer.exe
+./JackAnalyzer.exe ../ArrayTest/Main.jack
+```
+使用TextComparer
+```c
+cd C:\Users\Arthur\Downloads\nand2tetris\nand2tetris\tools
+```
+```c
+.\TextComparer.bat C:\arther\computer_arch\_co\final\10\theonewanttotest
+```
+**AI對話網址：**
+- [gemini對話網址](https://gemini.google.com/share/5b818714efcc)
